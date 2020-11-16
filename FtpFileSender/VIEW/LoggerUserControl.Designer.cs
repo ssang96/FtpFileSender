@@ -31,45 +31,32 @@
             this.lvCurrentStatus = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // lvCurrentStatus
             // 
+            this.lvCurrentStatus.BackColor = System.Drawing.SystemColors.Info;
             this.lvCurrentStatus.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader2});
             this.lvCurrentStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvCurrentStatus.HideSelection = false;
             this.lvCurrentStatus.Location = new System.Drawing.Point(0, 0);
             this.lvCurrentStatus.Name = "lvCurrentStatus";
-            this.lvCurrentStatus.Size = new System.Drawing.Size(884, 615);
+            this.lvCurrentStatus.Size = new System.Drawing.Size(884, 320);
             this.lvCurrentStatus.TabIndex = 0;
             this.lvCurrentStatus.UseCompatibleStateImageBehavior = false;
             this.lvCurrentStatus.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "로컬파일";
-            this.columnHeader1.Width = 445;
+            this.columnHeader1.Text = "Date";
+            this.columnHeader1.Width = 121;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "방향";
-            this.columnHeader2.Width = 98;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "크기";
-            this.columnHeader3.Width = 122;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "상태";
-            this.columnHeader4.Width = 192;
+            this.columnHeader2.Text = "이벤트";
+            this.columnHeader2.Width = 734;
             // 
             // LoggerUserControl
             // 
@@ -77,7 +64,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lvCurrentStatus);
             this.Name = "LoggerUserControl";
-            this.Size = new System.Drawing.Size(884, 615);
+            this.Size = new System.Drawing.Size(884, 320);
             this.ResumeLayout(false);
 
         }
@@ -87,7 +74,5 @@
         private System.Windows.Forms.ListView lvCurrentStatus;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }

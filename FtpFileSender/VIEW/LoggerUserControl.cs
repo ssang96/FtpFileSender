@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FtpFileSender.MODEL;
+using System;
 using System.Windows.Forms;
 
 namespace FtpFileSender.VIEW
 {
-    public partial class LoggerUserControl : UserControl
+    public partial class LoggerUserControl : UserControl, ILogDisplay
     {
         public LoggerUserControl()
         {
             InitializeComponent();
+        }
+
+        public void Display(string logs)
+        {
+            bool result = true;
+
+            Console.WriteLine(logs);
         }
     }
 }

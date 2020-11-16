@@ -9,7 +9,6 @@ D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\FtpFileSender.pdb
 D:\B&P\FtpFileSender\FtpFileSender\obj\Debug\FtpFileSender.exe
 D:\B&P\FtpFileSender\FtpFileSender\obj\Debug\FtpFileSender.pdb
 D:\B&P\FtpFileSender\FtpFileSender\obj\Debug\FtpFileSender.VIEW.LoginUserControl.resources
-D:\B&P\FtpFileSender\FtpFileSender\obj\Debug\FtpFileSender.VIEW.DirectoryInfoUserControl.resources
 D:\B&P\FtpFileSender\FtpFileSender\obj\Debug\FtpFileSender.VIEW.LoggerUserControl.resources
 D:\B&P\FtpFileSender\FtpFileSender\obj\Debug\FtpFileSender.exe.licenses
 D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\DevExpress.Data.v18.2.dll
@@ -102,4 +101,5 @@ D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\es\DevExpress.XtraTreeList.v18.2.re
 D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\ja\DevExpress.XtraTreeList.v18.2.resources.dll
 D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\ru\DevExpress.XtraTreeList.v18.2.resources.dll
 D:\B&P\FtpFileSender\FtpFileSender\obj\Debug\FtpFileSender.csproj.CopyComplete
-D:\B&P\FtpFileSender\FtpFileSender\obj\Debug\FtpFileSender.VIEW.LoginStatusUserControl.resources
+D:\B&P\FtpFileSender\FtpFileSender\obj\Debug\FtpFileSender.VIEW.SiteManageUserControl.resources
+D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\log4net.config
