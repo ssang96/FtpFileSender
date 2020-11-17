@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FtpFileSender.MODEL
+﻿namespace FtpFileSender.MODEL
 {
+    /// <summary>
+    /// sftp 정보를 저장하는 sftp 정보 저장 클래스
+    /// </summary>
     class FtpDirectoryInfo
     {
         public static string SFTPHOST { get; set; }

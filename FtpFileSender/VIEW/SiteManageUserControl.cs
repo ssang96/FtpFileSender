@@ -5,7 +5,6 @@ using System;
 using System.Collections;
 using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FtpFileSender.VIEW
@@ -52,36 +51,42 @@ namespace FtpFileSender.VIEW
 
         private void InitLocationEnvironment()
         {
-            var files = Directory.GetFiles(this._directoryPath);          
+            var files = Directory.GetFiles(this._directoryPath);
 
-            //Files Check
-            if (files.Length > 0)
+            try
             {
-                for (int i = 0; i < files.Length; i++)
+                //Files Check
+                if (files.Length > 0)
                 {
-                    var fileStream = new FileStream(files[i], FileMode.Open, FileAccess.Read);
-                    using (var streamReader = new StreamReader(fileStream))
+                    for (int i = 0; i < files.Length; i++)
                     {
-                        var line = streamReader.ReadToEnd();
+                        var fileStream = new FileStream(files[i], FileMode.Open, FileAccess.Read);
+                        using (var streamReader = new StreamReader(fileStream))
+                        {
+                            var line = streamReader.ReadToEnd();
 
-                        string[] datas = line.Split(',');
-                       
-                        SiteInfo siteInfo = new SiteInfo();
-                        siteInfo.SiteName = datas[0].Trim();
-                        siteInfo.SiteCode = datas[1].Trim();
-                        siteInfo.DataFile = datas[2].Trim();
+                            string[] datas = line.Split(',');
 
-                        if (datas[3] != "\r\n")
-                            siteInfo.LastestDate = datas[3].Replace("\"", "");
+                            SiteInfo siteInfo = new SiteInfo();
+                            siteInfo.SiteName = datas[0].Trim();
+                            siteInfo.SiteCode = datas[1].Trim();
+                            siteInfo.DataFile = datas[2].Trim();
 
-                        SitesInfoList.AddInfo(siteInfo.SiteName, siteInfo.SiteCode, siteInfo.DataFile, siteInfo.LastestDate);
-                        //리스트 뷰 추가
-                        this.lvSites.Items.Add(new ListViewItem(new[] { "", siteInfo.SiteName, siteInfo.SiteCode, siteInfo.DataFile}));
-                      
+                            if (datas[3] != "\r\n")
+                                siteInfo.LastestDate = datas[3].Replace("\"", "");
+
+                            SitesInfoList.AddInfo(siteInfo.SiteName, siteInfo.SiteCode, siteInfo.DataFile, siteInfo.LastestDate);
+                            //리스트 뷰 추가
+                            this.lvSites.Items.Add(new ListViewItem(new[] { "", siteInfo.SiteName, siteInfo.SiteCode, siteInfo.DataFile }));
+
+                        }
                     }
                 }
             }
-            //ListView Setting
+            catch (Exception ex)
+            {
+                log.Error(ex.Message);
+            }           
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -110,6 +115,8 @@ namespace FtpFileSender.VIEW
            
             //파일 추가
             CreateNewSiteInfo(this.txtLocationName.Text.Trim(), this.txtCode.Text.Trim());
+
+            log.Info(this.txtLocationName.Text + " created");
         }
 
         private bool CreateNewSiteInfo(string siteName, string siteCode)
@@ -142,7 +149,7 @@ namespace FtpFileSender.VIEW
             catch (Exception Ex)
             {
                 result = false;
-                Console.WriteLine(Ex.ToString());
+                log.Error(Ex.Message);              
             }
             return result;
         }
@@ -188,7 +195,7 @@ namespace FtpFileSender.VIEW
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (this.txtCode.Text == "")
+            if (this.txtLocationName.Text == "")
             {
                 MessageBox.Show("테이블에서 관측소를 클릭해 주세요");
                 return;
@@ -203,6 +210,7 @@ namespace FtpFileSender.VIEW
             var result = SitesInfoList.RemoveInfo(this.txtLocationName.Text, _deleteFileName);
 
             //파일 삭제
+            File.Delete(_directoryPath + _deleteFileName);
 
             //성공이면 다시 그린다.
             if(result)
@@ -221,6 +229,7 @@ namespace FtpFileSender.VIEW
                     }
                 }
             }
+            log.Info(this.txtLocationName.Text + " deleted");
         }
 
         private void txtCode_KeyPress(object sender, KeyPressEventArgs e)

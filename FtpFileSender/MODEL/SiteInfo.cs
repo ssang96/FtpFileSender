@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FtpFileSender.MODEL
+﻿namespace FtpFileSender.MODEL
 {
+    /// <summary>
+    /// loggernet에 연결된 각 지점의 정보 관리 클래스
+    /// </summary>
     public class SiteInfo
     {
         public string SiteName { get; set; }

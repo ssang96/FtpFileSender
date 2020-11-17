@@ -165,6 +165,12 @@ namespace FtpFileSender.CONTROL
             }
         }
 
+        /// <summary>
+        /// 다수이 데이터 파일을 생성하는 메소드
+        /// </summary>
+        /// <param name="datas"></param>
+        /// <param name="fileName"></param>
+        /// <param name="siteInfo"></param>
         private void MakeFile(List<FileDataStructure> datas, string fileName, SiteInfo siteInfo)
         {
             //1001801_년월일시분_Flux.dat, 1001801_년월일시분_30m.dat
@@ -190,7 +196,7 @@ namespace FtpFileSender.CONTROL
                     using (StreamWriter writer = new StreamWriter(_directoryPath + siteInfo.DataFile, false))
                     {
                         writer.Write(siteInfo.SiteName + "," + siteInfo.SiteCode + "," + siteInfo.DataFile + "," + data.dates.ToString("yyyy-MM-dd HH:mm:ss"));
-                        log.Info(_directoryPath + siteInfo.DataFile + " updated");
+                        log.Info(siteInfo.SiteName + "," + siteInfo.SiteCode + "," + siteInfo.DataFile + "," + data.dates.ToString("yyyy-MM-dd HH:mm:ss") + " updated");
                     }
                     SitesInfoList.UpdateLastedDate(siteInfo.DataFile, data.dates);
                 }
@@ -203,6 +209,12 @@ namespace FtpFileSender.CONTROL
 
         }
 
+        /// <summary>
+        /// 하나의 데이터 파일을 생성하는 메소드
+        /// </summary>
+        /// <param name="datas"></param>
+        /// <param name="fileName"></param>
+        /// <param name="siteInfo"></param>
         private void MakeFile(FileDataStructure datas, string fileName, SiteInfo siteInfo)
         {
             string ftpFileName = string.Empty;
@@ -223,7 +235,7 @@ namespace FtpFileSender.CONTROL
                 using (StreamWriter writer = new StreamWriter(_directoryPath + siteInfo.DataFile, false)) 
                 {
                     writer.Write(siteInfo.SiteName + "," + siteInfo.SiteCode + "," + siteInfo.DataFile + "," + datas.dates.ToString("yyyy-MM-dd HH:mm:ss"));
-                    log.Info(_directoryPath + siteInfo.DataFile + " updated");
+                    log.Info(siteInfo.SiteName + "," + siteInfo.SiteCode + "," + siteInfo.DataFile + "," + datas.dates.ToString("yyyy-MM-dd HH:mm:ss") + " updated");
                 }
 
                 SitesInfoList.UpdateLastedDate(siteInfo.DataFile, datas.dates);

@@ -109,3 +109,7 @@ D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\de\DevExpress.Xpo.v18.2.resources.d
 D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\es\DevExpress.Xpo.v18.2.resources.dll
 D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\ja\DevExpress.Xpo.v18.2.resources.dll
 D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\ru\DevExpress.Xpo.v18.2.resources.dll
+D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\FtpFileSender.exe.manifest
+D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\FtpFileSender.application
+D:\B&P\FtpFileSender\FtpFileSender\obj\Debug\FtpFileSender.exe.manifest
+D:\B&P\FtpFileSender\FtpFileSender\obj\Debug\FtpFileSender.application

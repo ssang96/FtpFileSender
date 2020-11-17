@@ -63,6 +63,11 @@ namespace FtpFileSender.CONTROL
             log.Info(_directoryPath + " monitoring");
         }
 
+        /// <summary>
+        /// ftp로 데이터를 전송하기 위한 디렉토리에 신규 파일 생성시 이벤트 발생 메소드
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnCreated(object sender, FileSystemEventArgs e)
         {
             //파일명 얻어오기
@@ -84,15 +89,26 @@ namespace FtpFileSender.CONTROL
                     _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.REMOTEDIRECTORYPATH + " 디렉토리를 변경했습니다.");
                     log.Info(FtpDirectoryInfo.REMOTEDIRECTORYPATH + " directory changed");
                     // SFTP 업로드
-                    using (var infile = File.Open(fullFileName, FileMode.Open))
-                    {
-                        sftp.UploadFile(infile, fileName);
-                        _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + fileName + " 업로드 했습니다.");
-                        log.Info(fileName + " file upload");
+                    SendFile(sftp, fileName);
 
-                        File.Delete(fullFileName);
-                        _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + fileName + " 삭제했습니다.");
-                        log.Info(fileName + " deleted");
+                    var files = Directory.GetFiles(this._directoryPath);
+
+                    if(files.Length > 0)
+                    {
+                        if(files.Length > 5)
+                        {
+                            for(int i = 0; i <= 5; i++)
+                            {
+                                SendFile(sftp, files[i]);
+                            }
+                        }
+                        else
+                        {
+                            for(int i = 0; i < files.Length; i++)
+                            {
+                                SendFile(sftp, files[i]);
+                            }
+                        }
                     }
 
                     sftp.Disconnect();
@@ -105,8 +121,37 @@ namespace FtpFileSender.CONTROL
                 _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + ex.Message + " 문제가 발생했습니다.");
                 log.Error(ex.Message);
             }
-            //전송 후, 디렉토리 남아있는 데이터 호출
+        }
 
+        /// <summary>
+        /// sftp 사이트로 파일 전송 메소드
+        /// </summary>
+        /// <param name="sftp"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        private bool SendFile(SftpClient sftp, string fileName)
+        {
+            var result = true;
+
+            try
+            {
+                using (var infile = File.Open(_directoryPath + fileName, FileMode.Open))
+                {
+                    sftp.UploadFile(infile, fileName);
+                    _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + fileName + " 업로드 했습니다.");
+                    log.Info(fileName + " file upload");
+
+                    File.Delete(_directoryPath + fileName);
+                    _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + fileName + " 삭제했습니다.");
+                    log.Info(fileName + " deleted");
+                }
+            }
+            catch(Exception ex) 
+            {
+                result = false;
+                log.Error(ex.Message);
+            }
+            return result;
         }
     }
 }

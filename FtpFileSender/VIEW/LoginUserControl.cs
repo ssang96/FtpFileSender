@@ -112,6 +112,7 @@ namespace FtpFileSender.VIEW
             }
 
             _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + "sftp program start....");
+            log.Info("sft program start...");
         }
 
         private void btnFileSelect_Click(object sender, EventArgs e)
