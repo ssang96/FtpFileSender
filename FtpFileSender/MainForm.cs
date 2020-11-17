@@ -17,6 +17,8 @@ namespace FtpFileSender
         {
             InitializeComponent();
 
+            this.MaximizeBox = false;
+
             this.InitDirectory();
 
             this.InitControl();

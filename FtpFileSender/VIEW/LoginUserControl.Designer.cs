@@ -187,6 +187,7 @@
             this.txtRemoteDirectory.Name = "txtRemoteDirectory";
             this.txtRemoteDirectory.Size = new System.Drawing.Size(159, 22);
             this.txtRemoteDirectory.TabIndex = 3;
+            this.txtRemoteDirectory.Text = "/";
             // 
             // btnStart
             // 
