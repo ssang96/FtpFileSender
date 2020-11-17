@@ -103,3 +103,9 @@ D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\ru\DevExpress.XtraTreeList.v18.2.re
 D:\B&P\FtpFileSender\FtpFileSender\obj\Debug\FtpFileSender.csproj.CopyComplete
 D:\B&P\FtpFileSender\FtpFileSender\obj\Debug\FtpFileSender.VIEW.SiteManageUserControl.resources
 D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\log4net.config
+D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\DevExpress.Xpo.v18.2.dll
+D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\DevExpress.Xpo.v18.2.xml
+D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\de\DevExpress.Xpo.v18.2.resources.dll
+D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\es\DevExpress.Xpo.v18.2.resources.dll
+D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\ja\DevExpress.Xpo.v18.2.resources.dll
+D:\B&P\FtpFileSender\FtpFileSender\bin\Debug\ru\DevExpress.Xpo.v18.2.resources.dll

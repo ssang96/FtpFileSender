@@ -48,26 +48,31 @@ namespace FtpFileSender.VIEW
             if(this.txtHost.Text == "")
             {
                 MessageBox.Show("SFTP 주소를 입력해 주세요");
+                return;
             }
 
             if (this.txtPort.Text == "")
             {
                 MessageBox.Show("SFTP 포트를 입력해 주세요");
+                return;
             }
 
             if (this.txtUserName.Text == "")
             {
                 MessageBox.Show("SFTP 접속 User Name을 입력해 주세요");
+                return;
             }
 
             if (this.txtPassword.Text == "")
             {
                 MessageBox.Show("SFTP 접속 패스워드를 입력해 주세요");
+                return;
             }
 
             if (this.txtLocalDirectory.Text == "")
             {
                 MessageBox.Show("Data 파일이 저장되는 Directory를 선택해 주세요");
+                return;
             }
 
             //save config           
@@ -78,6 +83,8 @@ namespace FtpFileSender.VIEW
             Properties.Settings.Default["LOCALPATH"]    = this.txtLocalDirectory.Text.Trim();
             Properties.Settings.Default["REMOTEPATH"]   = this.txtRemoteDirectory.Text.Trim();
 
+            Properties.Settings.Default.Save();
+
             //info object setting
             FtpDirectoryInfo.LOCALDIRECTORYPATH         = this.txtLocalDirectory.Text.Trim();
             FtpDirectoryInfo.REMOTEDIRECTORYPATH        = this.txtRemoteDirectory.Text.Trim();
@@ -85,45 +92,38 @@ namespace FtpFileSender.VIEW
             FtpDirectoryInfo.SFTPUSERNAME               = this.txtUserName.Text.Trim();
             FtpDirectoryInfo.LOCALDIRECTORYPATH         = this.txtLocalDirectory.Text.Trim();
             FtpDirectoryInfo.SFTPPASSWORD               = this.txtPassword.Text.Trim();
+            FtpDirectoryInfo.STFPPORT                   = this.txtPort.Text.Trim();
 
             //crete data file watch object create
-            if(this._fileController != null)
+            if (this._fileController != null)
             {
-                this._fileController.watch(this.txtLocalDirectory.Text.Trim());
+                this._fileController.watch(this.txtLocalDirectory.Text.Trim() + "\\");
             }
             else
             {
-                this._fileController = new DataFileController(this.txtLocalDirectory.Text.Trim());
+                this._fileController = new DataFileController(_logDisplay);
+                this._fileController.watch(this.txtLocalDirectory.Text.Trim() + "\\");
             }
+
+            if (SitesInfoList.GetSitesInfoList().Count < 1)
+            {
+                MessageBox.Show("사이트를 등록해 주세요");
+                return;
+            }
+
+            _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + "sftp program start....");
         }
 
         private void btnFileSelect_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            FolderBrowserDialog folderDlg = new FolderBrowserDialog();
+            folderDlg.ShowNewFolderButton = true;
+            // Show the FolderBrowserDialog.  
+            DialogResult result = folderDlg.ShowDialog();
+            if (result == DialogResult.OK)
             {
-                InitialDirectory = @"C:\",
-                Title = "Browse Data Files",
-
-                CheckFileExists = true,
-                CheckPathExists = true,
-
-                DefaultExt = "txt",
-                Filter = "dat files (*.dat)|*.dat|All files (*.*)|*.*",
-                FilterIndex = 2,
-                RestoreDirectory = true,
-
-                ReadOnlyChecked = true,
-                ShowReadOnly = true
-            };
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                if(openFileDialog.FileName != null)
-                {
-                    txtLocalDirectory.Text = openFileDialog.FileName;
-                   // _localPath = openFileDialog.FileName;
-                }
-            }
+                txtLocalDirectory.Text = folderDlg.SelectedPath;
+            }           
         }
     }
 }

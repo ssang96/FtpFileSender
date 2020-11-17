@@ -23,12 +23,15 @@ namespace FtpFileSender.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string HOSTIP {
             get {
                 return ((string)(this["HOSTIP"]));
+            }
+            set {
+                this["HOSTIP"] = value;
             }
         }
         

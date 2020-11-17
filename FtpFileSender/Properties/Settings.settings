@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FtpFileSender.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="HOSTIP" Type="System.String" Scope="Application">
+    <Setting Name="HOSTIP" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="HOSTPORT" Type="System.String" Scope="User">

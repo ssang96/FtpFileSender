@@ -1,5 +1,6 @@
 ﻿using FtpFileSender.MODEL;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace FtpFileSender.VIEW
@@ -15,7 +16,9 @@ namespace FtpFileSender.VIEW
         {
             bool result = true;
 
-            Console.WriteLine(logs);
+            var log = logs.Split(',');
+
+            this.lvCurrentStatus.Items.Add(new ListViewItem(new[] { log[0], log[1] }));
         }
     }
 }

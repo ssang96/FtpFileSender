@@ -40,6 +40,8 @@
             this.columnHeader1,
             this.columnHeader2});
             this.lvCurrentStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvCurrentStatus.GridLines = true;
+            this.lvCurrentStatus.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvCurrentStatus.HideSelection = false;
             this.lvCurrentStatus.Location = new System.Drawing.Point(0, 0);
             this.lvCurrentStatus.Name = "lvCurrentStatus";

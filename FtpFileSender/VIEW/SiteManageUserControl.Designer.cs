@@ -30,58 +30,70 @@ namespace FtpFileSender.VIEW
         private void InitializeComponent()
         {
             this.lvSites = new System.Windows.Forms.ListView();
-            this.ColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.txtLocationName = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.txtCode = new DevExpress.XtraEditors.TextEdit();
-            this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
             this.btnDelete = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
+            this.txtCode = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.txtLocationName = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
-            this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtLocationName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
+            this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtLocationName.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // lvSites
             // 
-            this.lvSites.BackColor = System.Drawing.SystemColors.Info;
+            this.lvSites.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.lvSites.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ColumnHeader1,
-            this.ColumnHeader2,
-            this.columnHeader3});
+            this.columnHeader4,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8});
             this.lvSites.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lvSites.FullRowSelect = true;
+            this.lvSites.GridLines = true;
+            this.lvSites.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvSites.HideSelection = false;
             this.lvSites.Location = new System.Drawing.Point(0, 43);
+            this.lvSites.MultiSelect = false;
             this.lvSites.Name = "lvSites";
             this.lvSites.Size = new System.Drawing.Size(884, 120);
             this.lvSites.TabIndex = 0;
             this.lvSites.UseCompatibleStateImageBehavior = false;
             this.lvSites.View = System.Windows.Forms.View.Details;
+            this.lvSites.SelectedIndexChanged += new System.EventHandler(this.lvSites_SelectedIndexChanged_1);
             // 
-            // ColumnHeader1
+            // columnHeader4
             // 
-            this.ColumnHeader1.Text = "관측소명";
-            this.ColumnHeader1.Width = 157;
+            this.columnHeader4.Text = "";
+            this.columnHeader4.Width = 0;
             // 
-            // ColumnHeader2
+            // columnHeader6
             // 
-            this.ColumnHeader2.Text = "관측소코드";
-            this.ColumnHeader2.Width = 156;
+            this.columnHeader6.Text = "관측소명";
+            this.columnHeader6.Width = 146;
             // 
-            // columnHeader3
+            // columnHeader7
             // 
-            this.columnHeader3.Text = "데이터 파일";
-            this.columnHeader3.Width = 547;
+            this.columnHeader7.Text = "관측소코드";
+            this.columnHeader7.Width = 141;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "데이터파일";
+            this.columnHeader8.Width = 539;
             // 
             // panelControl1
             // 
@@ -92,6 +104,26 @@ namespace FtpFileSender.VIEW
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(884, 43);
             this.panelControl1.TabIndex = 1;
+            // 
+            // panelControl3
+            // 
+            this.panelControl3.Controls.Add(this.btnDelete);
+            this.panelControl3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl3.Location = new System.Drawing.Point(672, 2);
+            this.panelControl3.Name = "panelControl3";
+            this.panelControl3.Size = new System.Drawing.Size(210, 39);
+            this.panelControl3.TabIndex = 1;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.Appearance.Options.UseFont = true;
+            this.btnDelete.Location = new System.Drawing.Point(130, 2);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 34);
+            this.btnDelete.TabIndex = 5;
+            this.btnDelete.Text = "삭제";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // panelControl2
             // 
@@ -106,49 +138,6 @@ namespace FtpFileSender.VIEW
             this.panelControl2.Size = new System.Drawing.Size(664, 39);
             this.panelControl2.TabIndex = 0;
             // 
-            // panelControl3
-            // 
-            this.panelControl3.Controls.Add(this.btnDelete);
-            this.panelControl3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl3.Location = new System.Drawing.Point(672, 2);
-            this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(210, 39);
-            this.panelControl3.TabIndex = 1;
-            // 
-            // labelControl1
-            // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Location = new System.Drawing.Point(16, 11);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(87, 23);
-            this.labelControl1.TabIndex = 0;
-            this.labelControl1.Text = "관측소명 : ";
-            // 
-            // txtLocationName
-            // 
-            this.txtLocationName.Location = new System.Drawing.Point(105, 13);
-            this.txtLocationName.Name = "txtLocationName";
-            this.txtLocationName.Size = new System.Drawing.Size(159, 20);
-            this.txtLocationName.TabIndex = 1;
-            // 
-            // labelControl2
-            // 
-            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl2.Appearance.Options.UseFont = true;
-            this.labelControl2.Location = new System.Drawing.Point(270, 11);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(110, 23);
-            this.labelControl2.TabIndex = 2;
-            this.labelControl2.Text = "관측소 코드 : ";
-            // 
-            // txtCode
-            // 
-            this.txtCode.Location = new System.Drawing.Point(386, 13);
-            this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(148, 20);
-            this.txtCode.TabIndex = 3;
-            // 
             // btnAdd
             // 
             this.btnAdd.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -160,15 +149,41 @@ namespace FtpFileSender.VIEW
             this.btnAdd.Text = "추가";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // btnDelete
+            // txtCode
             // 
-            this.btnDelete.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Appearance.Options.UseFont = true;
-            this.btnDelete.Location = new System.Drawing.Point(130, 2);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 34);
-            this.btnDelete.TabIndex = 5;
-            this.btnDelete.Text = "삭제";
+            this.txtCode.Location = new System.Drawing.Point(386, 13);
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Size = new System.Drawing.Size(148, 20);
+            this.txtCode.TabIndex = 3;
+            this.txtCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCode_KeyPress);
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl2.Appearance.Options.UseFont = true;
+            this.labelControl2.Location = new System.Drawing.Point(270, 11);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(110, 23);
+            this.labelControl2.TabIndex = 2;
+            this.labelControl2.Text = "관측소 코드 : ";
+            // 
+            // txtLocationName
+            // 
+            this.txtLocationName.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.txtLocationName.Location = new System.Drawing.Point(105, 13);
+            this.txtLocationName.Name = "txtLocationName";
+            this.txtLocationName.Size = new System.Drawing.Size(159, 20);
+            this.txtLocationName.TabIndex = 1;
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl1.Appearance.Options.UseFont = true;
+            this.labelControl1.Location = new System.Drawing.Point(16, 11);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(87, 23);
+            this.labelControl1.TabIndex = 0;
+            this.labelControl1.Text = "관측소명 : ";
             // 
             // SiteManageUserControl
             // 
@@ -180,13 +195,13 @@ namespace FtpFileSender.VIEW
             this.Size = new System.Drawing.Size(884, 163);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            this.panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             this.panelControl2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
-            this.panelControl3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.txtLocationName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtLocationName.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -195,9 +210,6 @@ namespace FtpFileSender.VIEW
 
         private System.Windows.Forms.ListView lvSites;
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private System.Windows.Forms.ColumnHeader ColumnHeader1;
-        private System.Windows.Forms.ColumnHeader ColumnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
         private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraEditors.SimpleButton btnDelete;
         private DevExpress.XtraEditors.PanelControl panelControl2;
@@ -206,5 +218,9 @@ namespace FtpFileSender.VIEW
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.TextEdit txtLocationName;
         private DevExpress.XtraEditors.LabelControl labelControl1;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
     }
 }
