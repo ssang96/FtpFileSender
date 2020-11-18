@@ -27,6 +27,8 @@ namespace FtpFileSender.VIEW
         {
             InitializeComponent();
 
+            CheckForIllegalCrossThreadCalls = false;
+
             _logDisplay = logDispaly;
 
             InitEnvironment();
@@ -97,14 +99,13 @@ namespace FtpFileSender.VIEW
             //crete data file watch object create
             if (this._fileController != null)
             {
-                this._fileController.watch(this.txtLocalDirectory.Text.Trim() + "\\");
+                this._fileController.Close();
+                this._fileController = null;
             }
-            else
-            {
-                this._fileController = new DataFileController(_logDisplay);
-                this._fileController.watch(this.txtLocalDirectory.Text.Trim() + "\\");
-            }
-
+           
+            this._fileController = new DataFileController(_logDisplay);
+            this._fileController.watch(this.txtLocalDirectory.Text.Trim() + "\\");
+           
             if (SitesInfoList.GetSitesInfoList().Count < 1)
             {
                 MessageBox.Show("사이트를 등록해 주세요");

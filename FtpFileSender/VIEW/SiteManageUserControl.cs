@@ -35,6 +35,8 @@ namespace FtpFileSender.VIEW
         {
             InitializeComponent();
 
+            CheckForIllegalCrossThreadCalls = false;
+
             this._logDisplay = logDisplay;
             
             this.InitDirectory();

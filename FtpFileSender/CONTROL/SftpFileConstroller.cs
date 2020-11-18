@@ -3,6 +3,7 @@ using log4net;
 using Renci.SshNet;
 using System;
 using System.IO;
+using System.Threading;
 
 namespace FtpFileSender.CONTROL
 {
@@ -77,8 +78,10 @@ namespace FtpFileSender.CONTROL
             //접속하기     
             try
             {
+                Thread.Sleep(1);
                 using (var sftp = new SftpClient(FtpDirectoryInfo.SFTPHOST, int.Parse(FtpDirectoryInfo.STFPPORT), FtpDirectoryInfo.SFTPUSERNAME, FtpDirectoryInfo.SFTPPASSWORD))
                 {
+                    sftp.ConnectionInfo.Timeout = TimeSpan.FromSeconds(3);
                     // SFTP 서버 연결
                     sftp.Connect();
 
@@ -99,14 +102,14 @@ namespace FtpFileSender.CONTROL
                         {
                             for(int i = 0; i <= 5; i++)
                             {
-                                SendFile(sftp, files[i]);
+                                SendFile(sftp, Path.GetFileName(files[i]));
                             }
                         }
                         else
                         {
                             for(int i = 0; i < files.Length; i++)
                             {
-                                SendFile(sftp, files[i]);
+                                SendFile(sftp, Path.GetFileName(files[i]));
                             }
                         }
                     }
@@ -140,11 +143,10 @@ namespace FtpFileSender.CONTROL
                     sftp.UploadFile(infile, fileName);
                     _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + fileName + " 업로드 했습니다.");
                     log.Info(fileName + " file upload");
-
-                    File.Delete(_directoryPath + fileName);
-                    _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + fileName + " 삭제했습니다.");
-                    log.Info(fileName + " deleted");
                 }
+                File.Delete(_directoryPath + fileName);
+                _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + fileName + " 삭제했습니다.");
+                log.Info(fileName + " deleted");
             }
             catch(Exception ex) 
             {

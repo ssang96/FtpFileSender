@@ -73,8 +73,14 @@ namespace FtpFileSender.CONTROL
                 watcher.Changed += new FileSystemEventHandler(OnChanged);
                 watcher.Created += new FileSystemEventHandler(OnChanged);
 
-                watcher.EnableRaisingEvents = true;
+                watcher.EnableRaisingEvents = true;               
             }
+        }
+
+        public void Close()
+        {
+            if (this.watcher != null)
+                this.watcher.Dispose();
         }
 
         /// <summary>
@@ -101,7 +107,6 @@ namespace FtpFileSender.CONTROL
             {
                 Thread.Sleep(1);
                 var AllLines = File.ReadAllLines(filePath).Reverse();
-
                 var siteInfo = SitesInfoList.GetSiteInfo(siteInfoFileName);                
 
                 //마지막 저장 date가 있다면 체크해서 파일 생성
@@ -192,6 +197,8 @@ namespace FtpFileSender.CONTROL
                         _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + ftpFileName + " 을 생성했습니다.");
                         log.Info(ftpFileName + " created");
                     }
+
+                    Thread.Sleep(1);
 
                     using (StreamWriter writer = new StreamWriter(_directoryPath + siteInfo.DataFile, false))
                     {
