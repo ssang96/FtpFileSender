@@ -88,9 +88,13 @@ namespace FtpFileSender.CONTROL
                     _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.SFTPHOST + " 에 접속했습니다.");
                     log.Info(FtpDirectoryInfo.SFTPHOST + " connected");
 
-                    sftp.ChangeDirectory(FtpDirectoryInfo.REMOTEDIRECTORYPATH);
-                    _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.REMOTEDIRECTORYPATH + " 디렉토리를 변경했습니다.");
-                    log.Info(FtpDirectoryInfo.REMOTEDIRECTORYPATH + " directory changed");
+                    if (FtpDirectoryInfo.REMOTEDIRECTORYPATH != "" && FtpDirectoryInfo.REMOTEDIRECTORYPATH != "\\")
+                    {
+                        sftp.ChangeDirectory(FtpDirectoryInfo.REMOTEDIRECTORYPATH);
+                        _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.REMOTEDIRECTORYPATH + " 디렉토리를 변경했습니다.");
+                        log.Info(FtpDirectoryInfo.REMOTEDIRECTORYPATH + " directory changed");
+                    }
+
                     // SFTP 업로드
                     SendFile(sftp, fileName);
 
