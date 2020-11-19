@@ -131,7 +131,7 @@ namespace FtpFileSender.CONTROL
                             }
                             else //slow
                             {
-                                dataStructure.type = "Slow";
+                                dataStructure.type = "30m";
                             }
                             fileDataList.Add(dataStructure);
                         }

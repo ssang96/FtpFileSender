@@ -147,7 +147,8 @@
             // 
             // btnFileSelect
             // 
-            this.btnFileSelect.Location = new System.Drawing.Point(307, 14);
+            this.btnFileSelect.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.btnFileSelect.Location = new System.Drawing.Point(307, 12);
             this.btnFileSelect.Name = "btnFileSelect";
             this.btnFileSelect.Size = new System.Drawing.Size(75, 23);
             this.btnFileSelect.TabIndex = 4;
@@ -191,6 +192,7 @@
             // 
             // btnStart
             // 
+            this.btnStart.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
             this.btnStart.Location = new System.Drawing.Point(798, 12);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 53);

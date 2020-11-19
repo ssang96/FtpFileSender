@@ -63,24 +63,38 @@ namespace FtpFileSender.VIEW
                     for (int i = 0; i < files.Length; i++)
                     {
                         var fileStream = new FileStream(files[i], FileMode.Open, FileAccess.Read);
+
                         using (var streamReader = new StreamReader(fileStream))
                         {
-                            var line = streamReader.ReadToEnd();
+                            try
+                            {                                
+                                var line = streamReader.ReadToEnd();
 
-                            string[] datas = line.Split(',');
+                                if (line != "")
+                                {
+                                    string[] datas = line.Split(',');
 
-                            SiteInfo siteInfo = new SiteInfo();
-                            siteInfo.SiteName = datas[0].Trim();
-                            siteInfo.SiteCode = datas[1].Trim();
-                            siteInfo.DataFile = datas[2].Trim();
+                                    SiteInfo siteInfo = new SiteInfo();
+                                    siteInfo.SiteName = datas[0].Trim();
+                                    siteInfo.SiteCode = datas[1].Trim();
+                                    siteInfo.DataFile = datas[2].Trim();
 
-                            if (datas[3] != "\r\n")
-                                siteInfo.LastestDate = datas[3].Replace("\"", "");
+                                    if (datas[3] != "\r\n")
+                                        siteInfo.LastestDate = datas[3].Replace("\"", "");
 
-                            SitesInfoList.AddInfo(siteInfo.SiteName, siteInfo.SiteCode, siteInfo.DataFile, siteInfo.LastestDate);
-                            //리스트 뷰 추가
-                            this.lvSites.Items.Add(new ListViewItem(new[] { "", siteInfo.SiteName, siteInfo.SiteCode, siteInfo.DataFile }));
+                                    SitesInfoList.AddInfo(siteInfo.SiteName, siteInfo.SiteCode, siteInfo.DataFile, siteInfo.LastestDate);
 
+                                    string[] row = { "", siteInfo.SiteName, siteInfo.SiteCode, siteInfo.DataFile };
+                                    var listViewItem = new ListViewItem(row);
+
+                                    //리스트 뷰 추가
+                                    this.lvSites.Items.Add(listViewItem);                                    
+                                }                               
+                            }
+                            catch (Exception ex)
+                            {
+                                log.Error($"{files[i]} have some error");
+                            }
                         }
                     }
                 }
@@ -186,13 +200,13 @@ namespace FtpFileSender.VIEW
                 this.lvSites.Items[i].ForeColor = Color.Black;
             }
             
-            this.lvSites.SelectedItems[0].ForeColor = Color.Blue;          
+            this.lvSites.SelectedItems[0].ForeColor = Color.Blue;
 
-            ListViewItem items = this.lvSites.SelectedItems[0];
+            ListViewItem item = this.lvSites.SelectedItems[0];
 
-            this.txtLocationName.Text   = items.SubItems[1].Text.ToString();
-            this.txtCode.Text           = items.SubItems[2].Text.ToString();
-            this._deleteFileName        = items.SubItems[3].Text.ToString();
+            this.txtLocationName.Text   = item.SubItems[1].Text;
+            this.txtCode.Text           = item.SubItems[2].Text;
+            _deleteFileName             = item.SubItems[3].Text;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -209,10 +223,21 @@ namespace FtpFileSender.VIEW
                 return;
             }
 
-            var result = SitesInfoList.RemoveInfo(this.txtLocationName.Text, _deleteFileName);
+            var result = false;
+            DialogResult dialogResult = MessageBox.Show($"{this.txtLocationName.Text} 사이트의 {_deleteFileName} 정보 파일을 삭제하시겠습니까?", "사이트 정보 파일 삭제", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                result = SitesInfoList.RemoveInfo(this.txtLocationName.Text, _deleteFileName);
 
-            //파일 삭제
-            File.Delete(_directoryPath + _deleteFileName);
+                //파일 삭제
+                File.Delete(_directoryPath + _deleteFileName);
+                _deleteFileName = "";
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                _deleteFileName = "";
+                return;
+            }
 
             //성공이면 다시 그린다.
             if(result)
