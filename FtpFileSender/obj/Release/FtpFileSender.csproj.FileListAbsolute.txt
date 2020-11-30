@@ -113,3 +113,4 @@ D:\B&P\FtpFileSender\FtpFileSender\obj\Release\FtpFileSender.application
 D:\B&P\FtpFileSender\FtpFileSender\obj\Release\FtpFileSender.csproj.CopyComplete
 D:\B&P\FtpFileSender\FtpFileSender\obj\Release\FtpFileSender.exe
 D:\B&P\FtpFileSender\FtpFileSender\obj\Release\FtpFileSender.pdb
+D:\B&P\FtpFileSender\FtpFileSender\bin\Release\PlantUml.Net.dll

@@ -95,78 +95,87 @@ namespace FtpFileSender.CONTROL
             var exist = false;
             string siteInfoFileName = string.Empty;
 
-            if (e.Name.ToUpper().Contains("FLUX"))
+            if (e.Name.ToUpper().Contains("FLUX") && !e.Name.ToUpper().Contains("NOTES"))
                 siteInfoFileName = siteName[0] + "_Flux";
-            else
+            else if (e.Name.ToUpper().Contains("30M"))
                 siteInfoFileName = siteName[0] + "_Slow";
+            else
+                return;
            
-            exist = SitesInfoList.CheckExistWithSiteName(siteInfoFileName);           
+            exist = SitesInfoList.CheckExistWithSiteName(siteInfoFileName);
 
             //환경 파일에서 설정된 사이트의 파일인지 체크
-            if (exist)
+            try
             {
-                Thread.Sleep(1);
-                var AllLines = File.ReadAllLines(filePath).Reverse();
-                var siteInfo = SitesInfoList.GetSiteInfo(siteInfoFileName);                
-
-                //마지막 저장 date가 있다면 체크해서 파일 생성
-                if (siteInfo.LastestDate != null)
+                if (exist)
                 {
-                    List<FileDataStructure> fileDataList = new List<FileDataStructure>();
+                    Thread.Sleep(1);
+                    var AllLines = File.ReadAllLines(filePath).Reverse();
+                    var siteInfo = SitesInfoList.GetSiteInfo(siteInfoFileName);
 
-                    foreach (string data in AllLines)
+                    //마지막 저장 date가 있다면 체크해서 파일 생성
+                    if (siteInfo.LastestDate != null)
                     {
-                        var date = data.Split(',')[0].Replace("\"", "");
+                        List<FileDataStructure> fileDataList = new List<FileDataStructure>();
 
-                        if (date != "" && date != siteInfo.LastestDate)
+                        foreach (string data in AllLines)
                         {
-                            FileDataStructure dataStructure = new FileDataStructure();
-                            dataStructure.dates = Convert.ToDateTime(date);
-                            dataStructure.rowData = data;
+                            var date = data.Split(',')[0].Replace("\"", "");
 
-                            //flux                             
-                            if (e.Name.Contains("Flux"))
+                            if (date != "" && date != siteInfo.LastestDate)
                             {
-                                dataStructure.type = "Flux";
+                                FileDataStructure dataStructure = new FileDataStructure();
+                                dataStructure.dates = Convert.ToDateTime(date);
+                                dataStructure.rowData = data;
+
+                                //flux                             
+                                if (e.Name.Contains("Flux"))
+                                {
+                                    dataStructure.type = "Flux";
+                                }
+                                else //slow
+                                {
+                                    dataStructure.type = "30m";
+                                }
+                                fileDataList.Add(dataStructure);
                             }
-                            else //slow
-                            {
-                                dataStructure.type = "30m";
-                            }
-                            fileDataList.Add(dataStructure);
+                            else
+                                break;
                         }
-                        else
+
+                        if (fileDataList.Count > 0)
+                        {
+                            MakeFile(fileDataList, e.Name, siteInfo);
+                        }
+                    }
+                    else  //없다면, 가장 마지막 데이터만 생성
+                    {
+                        foreach (string data in AllLines)
+                        {
+                            if (data != "")
+                            {
+                                FileDataStructure dataStructure = new FileDataStructure();
+                                dataStructure.dates = Convert.ToDateTime(data.Split(',')[0].Replace("\"", ""));
+                                dataStructure.rowData = data;
+
+                                if (e.Name.Contains("Flux"))
+                                {
+                                    dataStructure.type = "Flux";
+                                }
+                                else //slow
+                                {
+                                    dataStructure.type = "30m";
+                                }
+                                this.MakeFile(dataStructure, e.Name, siteInfo);
+                            }
                             break;
-                    }
-
-                    if (fileDataList.Count > 0)
-                    {
-                        MakeFile(fileDataList, e.Name, siteInfo);
-                    }
-                }
-                else  //없다면, 가장 마지막 데이터만 생성
-                {
-                    foreach (string data in AllLines)
-                    {
-                        if (data != "")
-                        {
-                            FileDataStructure dataStructure = new FileDataStructure();
-                            dataStructure.dates = Convert.ToDateTime(data.Split(',')[0].Replace("\"", ""));
-                            dataStructure.rowData = data;
-
-                            if (e.Name.Contains("Flux"))
-                            {
-                                dataStructure.type = "Flux";
-                            }
-                            else //slow
-                            {
-                                dataStructure.type = "30m";
-                            }
-                            this.MakeFile(dataStructure, e.Name, siteInfo);
                         }
-                        break;
                     }
                 }
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.Message);
             }
         }
 

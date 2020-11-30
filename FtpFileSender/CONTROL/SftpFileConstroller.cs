@@ -64,6 +64,39 @@ namespace FtpFileSender.CONTROL
             log.Info(_directoryPath + " monitoring");
         }
 
+        public bool TestConnect()
+        {
+            bool result = false;
+
+            //접속하기     
+            try
+            {
+                Thread.Sleep(1);
+                using (var sftp = new SftpClient(FtpDirectoryInfo.SFTPHOST, int.Parse(FtpDirectoryInfo.STFPPORT), FtpDirectoryInfo.SFTPUSERNAME, FtpDirectoryInfo.SFTPPASSWORD))
+                {
+                    sftp.ConnectionInfo.Timeout = TimeSpan.FromSeconds(3);
+                    // SFTP 서버 연결
+                    sftp.Connect();
+
+                    _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.SFTPHOST + " 에 접속했습니다.");
+                    log.Info(FtpDirectoryInfo.SFTPHOST + " connected");
+                                        
+                    sftp.Disconnect();
+                    _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.SFTPHOST + " 접속을 해제했습니다.");
+                    log.Info(FtpDirectoryInfo.SFTPHOST + " disconnected");
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + ex.Message + " 문제가 발생했습니다.");
+                log.Error(ex.Message);
+                result = false;
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// ftp로 데이터를 전송하기 위한 디렉토리에 신규 파일 생성시 이벤트 발생 메소드
         /// </summary>
@@ -102,9 +135,9 @@ namespace FtpFileSender.CONTROL
 
                     if(files.Length > 0)
                     {
-                        if(files.Length > 5)
+                        if(files.Length > 30)
                         {
-                            for(int i = 0; i <= 5; i++)
+                            for(int i = 0; i <= 30; i++)
                             {
                                 SendFile(sftp, Path.GetFileName(files[i]));
                             }

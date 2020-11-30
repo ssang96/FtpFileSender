@@ -114,6 +114,8 @@ namespace FtpFileSender.VIEW
 
             _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + "sftp program start....");
             log.Info("sft program start...");
+            SftpFileConstroller sftpFileConstroller = new SftpFileConstroller(_logDisplay);
+            sftpFileConstroller.TestConnect();
         }
 
         private void btnFileSelect_Click(object sender, EventArgs e)
