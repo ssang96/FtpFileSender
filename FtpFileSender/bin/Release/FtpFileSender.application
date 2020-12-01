@@ -7,14 +7,14 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="FtpFileSender.exe.manifest" size="16844">
+    <dependentAssembly dependencyType="install" codebase="FtpFileSender.exe.manifest" size="16201">
       <assemblyIdentity name="FtpFileSender.exe" version="1.0.0.6" publicKeyToken="0000000000000000" language="en" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>hFQq7SToUFLKWZT1ZkgGeE+QGbuR1juMZ4u4Xfb81zk=</dsig:DigestValue>
+        <dsig:DigestValue>RwUJCylDnENrigU2wPwsq2qBIXCFuiAgoJqqrBaZ/Bc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -234,14 +234,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FtpFileSender.exe" size="35760">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FtpFileSender.exe" size="36272">
       <assemblyIdentity name="FtpFileSender" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>vmGot0fAgOtlnK7Z3BEn++RXawzPjtD8IcIVf7tcsoc=</dsig:DigestValue>
+        <dsig:DigestValue>CXiVUv4i0If8pKHMmnx+VSMaP/HzuVBzfGOZr55dMpU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -254,18 +254,6 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>iWq5ysQeOXd5K6IDTqhzBhDCd5+lG6tr7UJglOqNPs0=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PlantUml.Net.dll" size="14848">
-      <assemblyIdentity name="PlantUml.Net" version="1.2.48.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5JokikJieMeDvjkV0MuYiEwsdZZY/Q9G+DwbGp6quHw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

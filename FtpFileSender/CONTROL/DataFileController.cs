@@ -122,7 +122,9 @@ namespace FtpFileSender.CONTROL
                         {
                             var date = data.Split(',')[0].Replace("\"", "");
 
-                            if (date != "" && date != siteInfo.LastestDate)
+                            DateTime dates = DateTime.Parse(date);
+
+                            if (date != "" && DateTime.Parse(siteInfo.LastestDate) < dates)
                             {
                                 FileDataStructure dataStructure = new FileDataStructure();
                                 dataStructure.dates = Convert.ToDateTime(date);

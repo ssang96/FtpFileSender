@@ -73,6 +73,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FTP FILE SENDER";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pnlLogin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlSiteManage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlCurrentStatus)).EndInit();
