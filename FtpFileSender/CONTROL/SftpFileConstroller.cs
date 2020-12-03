@@ -3,7 +3,6 @@ using log4net;
 using Renci.SshNet;
 using System;
 using System.IO;
-using System.Threading;
 
 namespace FtpFileSender.CONTROL
 {
@@ -68,30 +67,37 @@ namespace FtpFileSender.CONTROL
         {
             bool result = false;
 
+            SftpClient sftp = null;
+
             //접속하기     
             try
-            {
-                Thread.Sleep(1);
-                using (var sftp = new SftpClient(FtpDirectoryInfo.SFTPHOST, int.Parse(FtpDirectoryInfo.STFPPORT), FtpDirectoryInfo.SFTPUSERNAME, FtpDirectoryInfo.SFTPPASSWORD))
-                {
-                    sftp.ConnectionInfo.Timeout = TimeSpan.FromSeconds(3);
-                    // SFTP 서버 연결
-                    sftp.Connect();
+            {               
+                sftp = new SftpClient(FtpDirectoryInfo.SFTPHOST, int.Parse(FtpDirectoryInfo.STFPPORT), FtpDirectoryInfo.SFTPUSERNAME, FtpDirectoryInfo.SFTPPASSWORD);
+                sftp.ConnectionInfo.Timeout = TimeSpan.FromSeconds(3);
+                // SFTP 서버 연결
+                sftp.Connect();
 
-                    _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.SFTPHOST + " 에 접속했습니다.");
-                    log.Info(FtpDirectoryInfo.SFTPHOST + " connected");
-                                        
-                    sftp.Disconnect();
-                    _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.SFTPHOST + " 접속을 해제했습니다.");
-                    log.Info(FtpDirectoryInfo.SFTPHOST + " disconnected");
-                    result = true;
-                }
+                _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.SFTPHOST + " 에 접속했습니다.");
+                log.Info(FtpDirectoryInfo.SFTPHOST + " connected");
+
+                sftp.Disconnect();
+                _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.SFTPHOST + " 접속을 해제했습니다.");
+                log.Info(FtpDirectoryInfo.SFTPHOST + " disconnected");
+                result = true;
             }
             catch (Exception ex)
             {
                 _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + ex.Message + " 문제가 발생했습니다.");
                 log.Error(ex.Message);
                 result = false;
+            }
+            finally
+            {
+                if (sftp != null)
+                {
+                    sftp.Dispose();
+                    sftp = null;
+                }
             }
 
             return result;
@@ -107,59 +113,68 @@ namespace FtpFileSender.CONTROL
             //파일명 얻어오기
             var fullFileName = e.FullPath;
             var fileName = e.Name;
+            SftpClient sftp = null;
 
             //접속하기     
             try
-            {
-                Thread.Sleep(1);
-                using (var sftp = new SftpClient(FtpDirectoryInfo.SFTPHOST, int.Parse(FtpDirectoryInfo.STFPPORT), FtpDirectoryInfo.SFTPUSERNAME, FtpDirectoryInfo.SFTPPASSWORD))
+            {             
+                sftp = new SftpClient(FtpDirectoryInfo.SFTPHOST, int.Parse(FtpDirectoryInfo.STFPPORT), FtpDirectoryInfo.SFTPUSERNAME, FtpDirectoryInfo.SFTPPASSWORD);
+                
+                sftp.ConnectionInfo.Timeout = TimeSpan.FromSeconds(3);
+                // SFTP 서버 연결
+                sftp.Connect();
+
+                _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.SFTPHOST + " 에 접속했습니다.");
+                log.Info(FtpDirectoryInfo.SFTPHOST + " connected");
+
+                if (FtpDirectoryInfo.REMOTEDIRECTORYPATH != "" && FtpDirectoryInfo.REMOTEDIRECTORYPATH != "\\")
                 {
-                    sftp.ConnectionInfo.Timeout = TimeSpan.FromSeconds(3);
-                    // SFTP 서버 연결
-                    sftp.Connect();
-
-                    _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.SFTPHOST + " 에 접속했습니다.");
-                    log.Info(FtpDirectoryInfo.SFTPHOST + " connected");
-
-                    if (FtpDirectoryInfo.REMOTEDIRECTORYPATH != "" && FtpDirectoryInfo.REMOTEDIRECTORYPATH != "\\")
-                    {
-                        sftp.ChangeDirectory(FtpDirectoryInfo.REMOTEDIRECTORYPATH);
-                        _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.REMOTEDIRECTORYPATH + " 디렉토리를 변경했습니다.");
-                        log.Info(FtpDirectoryInfo.REMOTEDIRECTORYPATH + " directory changed");
-                    }
-
-                    // SFTP 업로드
-                    SendFile(sftp, fileName);
-
-                    var files = Directory.GetFiles(this._directoryPath);
-
-                    if(files.Length > 0)
-                    {
-                        if(files.Length > 30)
-                        {
-                            for(int i = 0; i <= 30; i++)
-                            {
-                                SendFile(sftp, Path.GetFileName(files[i]));
-                            }
-                        }
-                        else
-                        {
-                            for(int i = 0; i < files.Length; i++)
-                            {
-                                SendFile(sftp, Path.GetFileName(files[i]));
-                            }
-                        }
-                    }
-
-                    sftp.Disconnect();
-                    _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.SFTPHOST + " 접속을 해제했습니다.");
-                    log.Info(FtpDirectoryInfo.SFTPHOST + " disconnected");
+                    sftp.ChangeDirectory(FtpDirectoryInfo.REMOTEDIRECTORYPATH);
+                    _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.REMOTEDIRECTORYPATH + " 디렉토리를 변경했습니다.");
+                    log.Info(FtpDirectoryInfo.REMOTEDIRECTORYPATH + " directory changed");
                 }
+
+                // SFTP 업로드
+                SendFile(sftp, fileName);
+
+                var files = Directory.GetFiles(this._directoryPath);
+
+                if(files.Length > 0)
+                {
+                    if(files.Length > 30)
+                    {
+                        for(int i = 0; i <= 30; i++)
+                        {
+                            SendFile(sftp, Path.GetFileName(files[i]));
+                        }
+                    }
+                    else
+                    {
+                        for(int i = 0; i < files.Length; i++)
+                        {
+                            SendFile(sftp, Path.GetFileName(files[i]));
+                        }
+                    }
+                }
+
+                sftp.Disconnect();
+                sftp = null;
+
+                _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + FtpDirectoryInfo.SFTPHOST + " 접속을 해제했습니다.");
+                log.Info(FtpDirectoryInfo.SFTPHOST + " disconnected");                
             }
             catch(Exception ex)
             {
                 _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + ex.Message + " 문제가 발생했습니다.");
                 log.Error(ex.Message);
+            }
+            finally
+            {
+                if (sftp != null)
+                {
+                    sftp.Dispose();
+                    sftp = null;
+                }
             }
         }
 
@@ -174,16 +189,20 @@ namespace FtpFileSender.CONTROL
             var result = true;
 
             try
-            {
+            {               
                 using (var infile = File.Open(_directoryPath + fileName, FileMode.Open))
                 {
                     sftp.UploadFile(infile, fileName);
                     _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + fileName + " 업로드 했습니다.");
                     log.Info(fileName + " file upload");
                 }
-                File.Delete(_directoryPath + fileName);
-                _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + fileName + " 삭제했습니다.");
-                log.Info(fileName + " deleted");
+
+                if (File.Exists(_directoryPath + fileName))
+                {
+                    File.Delete(_directoryPath + fileName);
+                    _logDisplay.Display(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "," + fileName + " 삭제했습니다.");
+                    log.Info(fileName + " deleted");
+                }
             }
             catch(Exception ex) 
             {

@@ -234,14 +234,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FtpFileSender.exe" size="37808">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FtpFileSender.exe" size="38320">
       <assemblyIdentity name="FtpFileSender" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>nw/2WHBZbf2JudOJqj37qTxMFKnJFaDS76wYrIxCzMg=</dsig:DigestValue>
+        <dsig:DigestValue>SuyzuPxfpUtfOCkUIasCnFo8cRK+0adndgXYvqcS9i0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

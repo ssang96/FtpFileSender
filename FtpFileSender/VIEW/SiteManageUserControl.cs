@@ -252,7 +252,6 @@ namespace FtpFileSender.VIEW
                     {
                         //리스트 뷰 추가
                         this.lvSites.Items.Add(new ListViewItem(new[] { "", siteInfo.SiteName, siteInfo.SiteCode, siteInfo.DataFile}));
-
                     }
                 }
             }

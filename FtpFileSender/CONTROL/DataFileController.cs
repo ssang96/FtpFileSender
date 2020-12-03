@@ -80,7 +80,10 @@ namespace FtpFileSender.CONTROL
         public void Close()
         {
             if (this.watcher != null)
+            {              
                 this.watcher.Dispose();
+                this.watcher = null;
+            }
         }
 
         /// <summary>
@@ -108,8 +111,7 @@ namespace FtpFileSender.CONTROL
             try
             {
                 if (exist)
-                {
-                    Thread.Sleep(1);
+                {                   
                     var AllLines = File.ReadAllLines(filePath).Reverse();
                     var siteInfo = SitesInfoList.GetSiteInfo(siteInfoFileName);
 
@@ -174,6 +176,10 @@ namespace FtpFileSender.CONTROL
                         }
                     }
                 }
+                else
+                {
+                    return;
+                }
             }
             catch(Exception ex)
             {
@@ -190,12 +196,12 @@ namespace FtpFileSender.CONTROL
         private void MakeFile(List<FileDataStructure> datas, string fileName, SiteInfo siteInfo)
         {
             //1001801_년월일시분_Flux.dat, 1001801_년월일시분_30m.dat
-            string ftpFileName = string.Empty;
-
-            List<FileDataStructure> list = datas.OrderBy(data => data.dates).ToList();
+            string ftpFileName = string.Empty;           
 
             try
             {
+                List<FileDataStructure> list = datas.OrderBy(data => data.dates).ToList();
+
                 foreach (FileDataStructure data in list)
                 {
                     //1001801_년월일시분_Flux.dat, 1001801_년월일시분_30m.dat
