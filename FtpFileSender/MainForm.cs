@@ -1,7 +1,6 @@
 ﻿using FtpFileSender.VIEW;
 using log4net;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace FtpFileSender
@@ -30,9 +29,6 @@ namespace FtpFileSender
             this.InitDirectory();
 
             this.InitControl();
-
-            Thread.Sleep(10);
-            _loggerUserControl.Display(null);
         }
         /// <summary>
         /// 최초 실행시 root 디렉토리 생성

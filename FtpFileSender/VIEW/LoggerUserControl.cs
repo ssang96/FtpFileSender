@@ -30,17 +30,15 @@ namespace FtpFileSender.VIEW
                     this.lvCurrentStatus.Items.Clear();                   
                 }
 
-               // var log = logs.Split(',');
+                var log = logs.Split(',');
 
-             //   if(log != null && log.Length == 2)
-               //     this.lvCurrentStatus.Items.Add(new ListViewItem(new[] { log[0], log[1] }));
+                if(log != null && log.Length == 2)
+                    this.lvCurrentStatus.Items.Add(new ListViewItem(new[] { log[0], log[1] }));
             }
             catch(Exception ex)
             {
                 logger.Error(ex.Message);
             }
-            var log = logs.Split(',');
-            this.lvCurrentStatus.Items.Add(new ListViewItem(new[] { log[0], log[1] }));
         }
     }
 }
